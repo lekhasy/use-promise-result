@@ -6,6 +6,16 @@
   "scripts": {
     "test": "jest"
   },
+  "keywords": [
+    "promise",
+    "react",
+    "fetcher",
+    "retry",
+    "simple",
+    "data",
+    "hook",
+    "rest"
+  ],
   "author": "lekhasy",
   "license": "ISC",
   "dependencies": {},
