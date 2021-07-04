@@ -4,7 +4,8 @@
   "description": "Dead simple data fetcher for react",
   "main": "./src/index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "test-watch": "jest --watch"
   },
   "keywords": [
     "promise",

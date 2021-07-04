@@ -17,6 +17,7 @@ describe("usePromiseResult", () => {
       data: null,
       error: null,
       success: false,
+      reloadCount: 1,
     });
   });
 
@@ -35,6 +36,7 @@ describe("usePromiseResult", () => {
       data: 123,
       error: null,
       success: true,
+      reloadCount: 1
     });
   });
 
@@ -55,6 +57,19 @@ describe("usePromiseResult", () => {
       data: null,
       error: error,
       success: false,
+    });
+  });
+
+  it("should return false for reloadCount if initFetch set to false", () => {
+    const { result } = renderHook(() =>
+      usePromiseResult(async () => {
+        return 1;
+      }, false)
+    );
+
+    expect(result.current).toStrictEqual({
+      ...result.current,
+      reloadCount: 0,
     });
   });
 });

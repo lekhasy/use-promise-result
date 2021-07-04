@@ -18,7 +18,7 @@ function reducer(state, action) {
         ...state,
         loading: true,
         error: null,
-        retryCount: state.retryCount + 1,
+        reloadCount: state.reloadCount + 1,
       };
     default:
       throw new Error();
@@ -30,13 +30,13 @@ export function usePromiseResult(dataProvider, initFetch = true) {
     error: null,
     data: null,
     loading: initFetch,
-    retryCount: initFetch ? 0 : -1,
+    reloadCount: initFetch ? 1 : 0,
   });
 
   const isMounted = useIsMounted();
 
   useEffect(() => {
-    if (state.retryCount === -1) {
+    if (!initFetch && state.reloadCount === 0) {
       return;
     }
     dataProvider()
@@ -48,7 +48,7 @@ export function usePromiseResult(dataProvider, initFetch = true) {
       });
     // we only want to trigger this effect only user specifically call retry
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state.retryCount]);
+  }, [state.reloadCount]);
 
   const handleReload = useCallback(() => {
     dispatch({ type: "reload" });
@@ -59,6 +59,7 @@ export function usePromiseResult(dataProvider, initFetch = true) {
     data: state.data,
     error: state.error,
     success: !state.loading && !state.error,
+    reloadCount: state.reloadCount,
     reload: handleReload,
   };
 }
