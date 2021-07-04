@@ -1,3 +1,5 @@
+[![npm publish](https://github.com/lekhasy/use-promise-result/actions/workflows/npm-publish.yml/badge.svg)](https://github.com/lekhasy/use-promise-result/actions/workflows/npm-publish.yml)
+
 Tired creating these state in your component: isLoading, isError, data, retry?
 <br>
 With use-promise-result, your job is to specify how to get data, we take care all the boring flags.
