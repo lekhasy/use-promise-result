@@ -8,7 +8,7 @@ With use-promise-result, your job is to specify how to get data, we take care al
 # Install:
 
 ```shell
-pnpm i use-promise-result
+npm i use-promise-result
 ```
 
 # Usage:
@@ -54,6 +54,7 @@ Later you can call reload function to trigger the call to data provider (ex: whe
 - error: error throw from dataProvider
 - loading: indicate state of the promise returned from dataProvider
 - reload: call this function to reload data
+- reloadCount: number of time dataProvider get involved, use this with initFetch = false
 ```
 
 #### Most of the time, you only care about is data available or not
