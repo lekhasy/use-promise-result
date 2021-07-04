@@ -1,6 +1,6 @@
 {
   "name": "use-promise-result",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "Dead simple data fetcher for react",
   "main": "./src/index.js",
   "scripts": {
@@ -8,10 +8,12 @@
   },
   "author": "lekhasy",
   "license": "ISC",
-  "dependencies": {
-    "react": ">=16.0.0"
+  "dependencies": {},
+  "peerDependencies": {
+    "react": ">=16.8.0"
   },
   "devDependencies": {
+    "react": ">=16.8.0",
     "@babel/preset-env": "^7.14.7",
     "@testing-library/react-hooks": "^7.0.1",
     "jest": "^27.0.6",
