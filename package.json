@@ -1,6 +1,6 @@
 {
   "name": "use-promise-result",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Dead simple data fetcher for react",
   "main": "./src/index.js",
   "scripts": {
