@@ -64,7 +64,8 @@ export function usePromiseResult(dataProvider, initFetch = true) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.reloadCount]);
 
-  const handleReload = useCallback(({ onSuccess, onError }) => {
+  const handleReload = useCallback((options) => {
+    const { onSuccess, onError } = options || {};
     dispatch({
       type: "reload",
       payload: {
