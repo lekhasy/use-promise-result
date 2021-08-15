@@ -1,4 +1,6 @@
 import { useCallback, useEffect, useReducer, useRef } from "react";
+import { useIsMounted } from "./useIsMounted";
+import usePromiseTracker from "./usePromiseTracker";
 
 function reducer(state, action) {
   switch (action.type) {
@@ -28,6 +30,24 @@ function reducer(state, action) {
     default:
       throw new Error();
   }
+}
+
+export function usePromiseResult1(dataProvider, initFetch = true) {
+  const { loading, success, data, error, track } = usePromiseTracker(
+    initFetch ? dataProvider() : null
+  );
+
+  const handleRetry = () => {
+    track(dataProvider);
+  };
+
+  return {
+    loading,
+    success,
+    data,
+    error,
+    retry: handleRetry,
+  };
 }
 
 export function usePromiseResult(dataProvider, initFetch = true) {
@@ -83,17 +103,4 @@ export function usePromiseResult(dataProvider, initFetch = true) {
     reloadCount: state.reloadCount,
     reload: handleReload,
   };
-}
-
-// https://stackoverflow.com/questions/49906437/how-to-cancel-a-fetch-on-componentwillunmount
-function useIsMounted() {
-  const isMounted = useRef(true);
-
-  useEffect(() => {
-    return () => {
-      isMounted.current = false;
-    };
-  }, []);
-
-  return isMounted; // returning "isMounted.current" wouldn't work because we would return unmutable primitive
 }
