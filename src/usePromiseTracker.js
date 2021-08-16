@@ -45,7 +45,7 @@ function reducer(state, action) {
   }
 }
 
-export default function usePromiseTracker(initialPromise) {
+export function usePromiseTracker(initialPromise) {
   const [state, dispatch] = useReducer(reducer, {
     error: null,
     data: null,
@@ -109,5 +109,6 @@ export default function usePromiseTracker(initialPromise) {
     error: state.error,
     success: state.currentPromiseId !== 0 && !state.loading && !state.error,
     track: handleTrack,
+    tracking: state.currentPromiseId !== 0,
   };
 }

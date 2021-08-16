@@ -2,7 +2,7 @@ import { expect } from "@jest/globals";
 import { renderHook } from "@testing-library/react-hooks";
 import { act } from "react-test-renderer";
 
-import usePromiseTracker from "./usePromiseTracker";
+import { usePromiseTracker } from "./usePromiseTracker";
 
 it("should return correct flag when nothing tracked", () => {
   const { result } = renderHook(() => usePromiseTracker());
@@ -11,7 +11,7 @@ it("should return correct flag when nothing tracked", () => {
     success: false,
     data: null,
     error: null,
-    track: result.current.track,
+    tracking: false,
   });
 
   expect(result.current.track instanceof Function).toBeTruthy();
@@ -35,7 +35,7 @@ it("should return correct flag when initial promise provided", async () => {
     success: true,
     data: 1,
     error: null,
-    track: result.current.track,
+    tracking: true,
   });
 
   expect(result.current.track instanceof Function).toBeTruthy();
@@ -58,7 +58,7 @@ describe("first request success", () => {
       success: false,
       data: null,
       error: null,
-      track: result.current.track,
+      tracking: true,
     });
 
     await waitForNextUpdate();
@@ -68,7 +68,7 @@ describe("first request success", () => {
       success: true,
       data: 1,
       error: null,
-      track: result.current.track,
+      tracking: true,
     });
   });
   it("should return correct flags when second request fail", async () => {
@@ -90,7 +90,7 @@ describe("first request success", () => {
       success: true,
       data: 1,
       error: null,
-      track: result.current.track,
+      tracking: true,
     });
 
     const error = new Error("Interesting reason");
@@ -110,7 +110,7 @@ describe("first request success", () => {
       success: false,
       data: null,
       error: error,
-      track: result.current.track,
+      tracking: true,
     });
   });
 });
@@ -134,7 +134,7 @@ describe("first request fail", () => {
       success: false,
       data: null,
       error: null,
-      track: result.current.track,
+      tracking: true,
     });
 
     await waitForNextUpdate();
@@ -144,7 +144,7 @@ describe("first request fail", () => {
       success: false,
       data: null,
       error: error,
-      track: result.current.track,
+      tracking: true,
     });
   });
   it("should return correct flags when second request success", async () => {
@@ -170,7 +170,7 @@ describe("first request fail", () => {
       success: false,
       data: null,
       error: error,
-      track: result.current.track,
+      tracking: true,
     });
 
     act(() =>
@@ -187,7 +187,7 @@ describe("first request fail", () => {
       success: true,
       data: 1,
       error: null,
-      track: result.current.track,
+      tracking: true,
     });
   });
 });

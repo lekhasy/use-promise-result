@@ -1,1 +1,1 @@
-export { usePromiseResult } from "./usePromiseResult";
+export { usePromiseTracker } from "./usePromiseTracker";
