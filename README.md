@@ -5,6 +5,7 @@ Also you need to check if component unmounted, is the current response still val
 With use-promise-result, your job is to specify how to get data, we take care all the boring flags.
 
 # Build Status:
+
 [![npm publish](https://github.com/lekhasy/use-promise-result/actions/workflows/npm-publish.yml/badge.svg)](https://github.com/lekhasy/use-promise-result/actions/workflows/npm-publish.yml)
 
 # Install:
@@ -23,14 +24,11 @@ const dataProvider = async () => {
 };
 
 function App() {
-  const { data, error, loading, success, track, tracking } =
-    usePromiseTracker();
+  const { data, error, loading, success, track, tracking } = usePromiseTracker(
+    dataProvider()
+  );
 
-  useEffect(() => {
-    handleReload()
-  });
-
-  const handleReload = () => track(dataProvider())
+  const handleReload = () => track(dataProvider());
 
   // ...
 }
@@ -38,11 +36,10 @@ function App() {
 
 ## Fetch data on click:
 
-``` javascript
-const { data, error, loading, success, track, tracking } =
-    usePromiseTracker();
+```javascript
+const { data, error, loading, success, track, tracking } = usePromiseTracker();
 
-const handleReload = () => track(dataProvider())
+const handleReload = () => track(dataProvider());
 ```
 
 # API Reference:
