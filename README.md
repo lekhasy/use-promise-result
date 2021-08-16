@@ -1,4 +1,6 @@
-Tired creating these state in your component: isLoading, isError, data, retry?
+Tired creating these state in your component: loading, error, data, retry?
+<br>
+Also you need to check if component unmounted, is the current response still valid ...
 <br>
 With use-promise-result, your job is to specify how to get data, we take care all the boring flags.
 
@@ -14,55 +16,54 @@ npm i use-promise-result
 # Usage:
 
 ```javascript
-import { usePromiseResult } from "use-promise-result";
+import { usePromiseTracker } from "use-promise-result";
 
 const dataProvider = async () => {
   return (await axios.get("https://jsonplaceholder.typicode.com/todos/1")).data;
 };
 
 function App() {
-  const { data, error, loading, success, reload } =
-    usePromiseResult(dataProvider);
+  const { data, error, loading, success, track, tracking } =
+    usePromiseTracker();
+
+  useEffect(() => {
+    handleReload()
+  });
+
+  const handleReload = () => track(dataProvider())
 
   // ...
 }
 ```
 
-## Fetch data on action:
+## Fetch data on click:
 
+``` javascript
+const { data, error, loading, success, track, tracking } =
+    usePromiseTracker();
+
+const handleReload = () => track(dataProvider())
 ```
-const { data, error, loading, success, reload } =
-    usePromiseResult(dataProvider, false);
-```
-
-Passing the second parameter to fail would stop usePromiseResult from calling data provider on mount.
-
-Later you can call reload function to trigger the call to data provider (ex: when user click on a button)
 
 # API Reference:
 
-### usePromiseResult
+### usePromiseTracker
 
-```
-- usePromiseResult(<dataProvider>, [initFetch]) : {data, error, loading, success, reload}
+```javascript
+usePromiseTracker() : {data, error, loading, success, track, tracking}
 ```
 
 ### Returned value
 
 ```
-- data: value returned from dataProvider
-- error: error throw from dataProvider
-- loading: indicate state of the promise returned from dataProvider
-- reload: call this function to reload data
-- reloadCount: number of time dataProvider get involved, use this with initFetch = false
+- data: value returned from the promise
+- error: error throw from the promise
+- loading: indicate state of the promise
+- track: call this function to track another promise
+- tracking: indicate that the hook is tracking a promise
+- success: tracking && !state.loading && !state.error
 ```
 
-#### Most of the time, you only care about is data available or not
-
-```
-- success: success = !state.loading && !state.error
-```
-
-# Example:
+# Demo:
 
 https://stackblitz.com/edit/react-kuzhwn?file=package.json
